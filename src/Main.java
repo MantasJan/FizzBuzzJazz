@@ -1,17 +1,56 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
-    public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+    enum Rule {
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+        FIZZ(3,"Fizz"),
+        BUZZ(5, "Buzz"),
+        JAZZ(7, "Jazz");
+
+        final int divisor;
+        final String word;
+
+        Rule(int divisor, String word) {
+            this.divisor = divisor;
+            this.word = word;
         }
     }
+
+    private static List<String> fizzBuzz(int n) {
+        List<String> result = new ArrayList<>();
+
+        for(int i = 1; i <= n; ++i) {
+            String temp = "";
+
+            for (Rule rule : Rule.values()) {
+                if (isDivisibleBy(i, rule.divisor)) {
+                    temp += rule.word;
+                }
+            }
+
+            if(temp.isEmpty()) {
+                temp += Integer.toString(i);
+            }
+
+            result.add(temp);
+        }
+
+        return result;
+    }
+
+    private static boolean isDivisibleBy(int number, int divisor) {
+        return number % divisor == 0;
+    }
+
+    public static void main(String[] args) {
+
+        int n = 50;
+        List<String> result = fizzBuzz(n);
+        for (String s : result) {
+            System.out.print(s + " ");
+        }
+    }
+
 }
